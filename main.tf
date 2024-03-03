@@ -8,7 +8,7 @@ terraform {
 
 module "master" {
   source  = "gitlab.com/devops9483002/proxmox-virtual-machine/proxmox"
-  version = "0.1.0"
+  version = "0.2.0"
 
   count = length(var.master_mapping)
 
@@ -16,6 +16,8 @@ module "master" {
   description = var.master_description
   target_node = var.master_mapping[count.index].node
   qemu_agent  = var.qemu_agent
+  hastate     = var.hastate
+  hagroup     = var.master_mapping[count.index].hagroup
 
   template_name = var.master_vm_template
   os_type       = var.master_os_type
@@ -28,7 +30,7 @@ module "master" {
 
 module "worker" {
   source  = "gitlab.com/devops9483002/proxmox-virtual-machine/proxmox"
-  version = "0.1.0"
+  version = "0.2.0"
 
   count = length(var.worker_mapping)
 
@@ -36,6 +38,8 @@ module "worker" {
   description = var.worker_description
   target_node = var.worker_mapping[count.index].node
   qemu_agent  = var.qemu_agent
+  hastate     = var.hastate
+  hagroup     = var.worker_mapping[count.index].hagroup
 
   template_name = var.worker_vm_template
   os_type       = var.worker_os_type

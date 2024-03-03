@@ -9,6 +9,18 @@ variable "qemu_agent" {
   description = "Enable the QEMU agent for the virtual machines."
 }
 
+variable "hastate" {
+  type        = string
+  default     = null
+  description = "The HA state of the virtual machines. Options: started, stopped, enabled, disabled, or ignored"
+}
+
+variable "hagroup" {
+  type        = string
+  default     = null
+  description = "The HA group of the virtual machines. HA State must be set."
+}
+
 ########################################
 # Master
 ########################################
@@ -17,6 +29,7 @@ variable "master_mapping" {
   type = list(object({
     node         = string
     storage_name = string
+    hagroup      = string
   }))
 }
 
@@ -77,6 +90,7 @@ variable "worker_mapping" {
   type = list(object({
     node         = string
     storage_name = string
+    hagroup      = string
   }))
 }
 
