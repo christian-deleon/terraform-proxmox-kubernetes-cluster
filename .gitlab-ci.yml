@@ -1,0 +1,6 @@
+include:
+  - project: "devops9483002/terraform/gitlab-ci-template"
+    file: ".gitlab-ci.yml"
+
+variables:
+  TERRAFORM_MODULE_SYSTEM: proxmox
