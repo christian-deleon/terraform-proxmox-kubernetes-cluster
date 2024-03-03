@@ -15,7 +15,7 @@ variable "qemu_agent" {
 
 variable "master_mapping" {
   type = list(object({
-    node      = string
+    node         = string
     storage_name = string
   }))
 }
@@ -75,8 +75,8 @@ variable "master_description" {
 
 variable "worker_mapping" {
   type = list(object({
-    host      = string
-    datastore = string
+    node         = string
+    storage_name = string
   }))
 }
 
