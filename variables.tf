@@ -108,11 +108,6 @@ variable "master_cores" {
   type        = number
   default     = 4
   description = "The number of cores to allocate to each master node."
-
-  validation {
-    condition     = var.master_cores >= 4 && var.master_cores <= 8
-    error_message = "The number of cores must be between 4 and 8."
-  }
 }
 
 variable "master_vcpus" {
@@ -183,11 +178,6 @@ variable "worker_cores" {
   type        = number
   default     = 4
   description = "The number of cores to allocate to each worker node."
-
-  validation {
-    condition     = var.worker_cores >= 4 && var.worker_cores <= 12
-    error_message = "The number of cores must be between 4 and 12."
-  }
 }
 
 variable "worker_vcpus" {
