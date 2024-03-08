@@ -1,3 +1,7 @@
+########################################
+# General settings
+########################################
+
 variable "cluster_name" {
   type        = string
   description = "The name of the cluster."
@@ -9,20 +13,75 @@ variable "qemu_agent" {
   description = "Enable the QEMU agent for the virtual machines."
 }
 
+variable "os_type" {
+  type        = string
+  description = "The type of the operating system. Options: ubuntu, centos, cloud-init"
+}
+
+variable "cloudinit_user" {
+  type        = string
+  default     = null
+  description = "The cloud-init user"
+}
+
+variable "cloudinit_password" {
+  type        = string
+  default     = null
+  description = "The cloud-init user password"
+}
+
+variable "cloudinit_sshkey" {
+  type        = string
+  default     = null
+  description = "The cloud-init user ssh key"
+}
+
+variable "cloudinit_cdrom" {
+  type        = string
+  default     = null
+  description = "The cloud-init cdrom storage name"
+}
+
 variable "hastate" {
   type        = string
   default     = null
   description = "The HA state of the virtual machines. Options: started, stopped, enabled, disabled, or ignored"
 }
 
-variable "hagroup" {
+variable "scsihw" {
   type        = string
   default     = null
-  description = "The HA group of the virtual machines. HA State must be set."
+  description = "The SCSI controller type. Options: lsi, virtio-scsi-pci, virtio-scsi-single"
+}
+
+variable "bootdisk" {
+  type        = string
+  default     = "scsi0"
+  description = "The boot disk"
+}
+
+variable "ipconfig0_ip" {
+  type    = string
+  default = null
+}
+
+variable "ipconfig0_cidr" {
+  type    = string
+  default = null
+}
+
+variable "ipconfig0_gw" {
+  type    = string
+  default = null
+}
+
+variable "nameserver" {
+  type    = string
+  default = null
 }
 
 ########################################
-# Master
+# Master settings
 ########################################
 
 variable "master_mapping" {
@@ -30,6 +89,7 @@ variable "master_mapping" {
     node         = string
     storage_name = string
     hagroup      = string
+    ipconfig0_ip = string
   }))
 }
 
@@ -38,9 +98,10 @@ variable "master_vm_template" {
   description = "The name of the template to use for the master nodes."
 }
 
-variable "master_os_type" {
-  type        = string
-  description = "The type of the operating system for master nodes. Options: ubuntu, centos, cloud-init"
+variable "master_sockets" {
+  type        = number
+  default     = 1
+  description = "The number of sockets to allocate to each master node."
 }
 
 variable "master_cores" {
@@ -52,6 +113,18 @@ variable "master_cores" {
     condition     = var.master_cores >= 4 && var.master_cores <= 8
     error_message = "The number of cores must be between 4 and 8."
   }
+}
+
+variable "master_vcpus" {
+  type        = string
+  default     = "0"
+  description = "The number of vcpus to allocate to each master node."
+}
+
+variable "master_cpu" {
+  type        = string
+  default     = "host"
+  description = "The CPU type to allocate to each master node. Options: host, kvm64, kvm32, core2duo, pentium, phenom, qemu64, qemu32"
 }
 
 variable "master_memory" {
@@ -83,7 +156,7 @@ variable "master_description" {
 }
 
 ########################################
-# Worker
+# Worker settings
 ########################################
 
 variable "worker_mapping" {
@@ -91,6 +164,7 @@ variable "worker_mapping" {
     node         = string
     storage_name = string
     hagroup      = string
+    ipconfig0_ip = string
   }))
 }
 
@@ -99,9 +173,10 @@ variable "worker_vm_template" {
   description = "The name of the template to use for the worker nodes."
 }
 
-variable "worker_os_type" {
-  type        = string
-  description = "The type of the operating system for worker nodes. Options: ubuntu, centos, cloud-init"
+variable "worker_sockets" {
+  type        = number
+  default     = 1
+  description = "The number of sockets to allocate to each worker node."
 }
 
 variable "worker_cores" {
@@ -113,6 +188,18 @@ variable "worker_cores" {
     condition     = var.worker_cores >= 4 && var.worker_cores <= 12
     error_message = "The number of cores must be between 4 and 12."
   }
+}
+
+variable "worker_vcpus" {
+  type        = string
+  default     = "0"
+  description = "The number of vcpus to allocate to each worker node."
+}
+
+variable "worker_cpu" {
+  type        = string
+  default     = "host"
+  description = "The CPU type to allocate to each worker node. Options: host, kvm64, kvm32, core2duo, pentium, phenom, qemu64, qemu32"
 }
 
 variable "worker_memory" {
