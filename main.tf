@@ -6,9 +6,13 @@ terraform {
   }
 }
 
+locals {
+  combined_tags = concat(var.tags, ["kubernetes", "cluster", var.cluster_name])
+}
+
 module "master" {
   source  = "gitlab.com/devops9483002/proxmox-virtual-machine/proxmox"
-  version = "0.3.2"
+  version = "0.4.0"
 
   count = length(var.master_mapping)
 
@@ -18,6 +22,7 @@ module "master" {
   target_node   = var.master_mapping[count.index].node
   qemu_agent    = var.qemu_agent
   template_name = var.master_vm_template
+  tags          = concat(local.combined_tags, ["master"])
 
   # Network settings
   ipconfig0_ip   = var.master_mapping[count.index].ipconfig0_ip
@@ -46,7 +51,7 @@ module "master" {
 
 module "worker" {
   source  = "gitlab.com/devops9483002/proxmox-virtual-machine/proxmox"
-  version = "0.3.2"
+  version = "0.4.0"
 
   count = length(var.worker_mapping)
 
@@ -56,6 +61,7 @@ module "worker" {
   target_node   = var.worker_mapping[count.index].node
   qemu_agent    = var.qemu_agent
   template_name = var.worker_vm_template
+  tags          = concat(local.combined_tags, ["worker"])
 
   # Network settings
   ipconfig0_ip   = var.worker_mapping[count.index].ipconfig0_ip

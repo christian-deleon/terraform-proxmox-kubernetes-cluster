@@ -80,6 +80,12 @@ variable "nameserver" {
   default = null
 }
 
+variable "tags" {
+  type    = list(string)
+  default = []
+  description = "The tags to assign to the virtual machines."
+}
+
 ########################################
 # Master settings
 ########################################
