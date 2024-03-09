@@ -22,7 +22,7 @@ module "master" {
   target_node   = var.master_mapping[count.index].node
   qemu_agent    = var.qemu_agent
   template_name = var.master_vm_template
-  tags          = count.index == 0 ? concat(local.combined_tags, ["controlplane-maste"]) : concat(local.combined_tags, ["controlplane-slave"])
+  tags          = count.index == 0 ? concat(local.combined_tags, ["controlplane", "controlplane-master"]) : concat(local.combined_tags, ["controlplane", "controlplane-slave"])
 
   # Network settings
   ipconfig0_ip   = var.master_mapping[count.index].ipconfig0_ip
