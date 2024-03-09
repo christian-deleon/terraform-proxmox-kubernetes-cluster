@@ -81,8 +81,8 @@ variable "nameserver" {
 }
 
 variable "tags" {
-  type    = list(string)
-  default = []
+  type        = list(string)
+  default     = []
   description = "The tags to assign to the virtual machines."
 }
 
