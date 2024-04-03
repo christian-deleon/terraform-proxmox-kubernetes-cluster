@@ -132,22 +132,12 @@ variable "master_memory" {
   type        = number
   default     = 4096
   description = "The amount of memory to allocate to each master node."
-
-  validation {
-    condition     = var.master_memory >= 4096 && var.master_memory <= 16384
-    error_message = "The amount of memory must be between 4096 and 16384."
-  }
 }
 
 variable "master_disk_size" {
   type        = number
   default     = 100
   description = "The size of the root disk to allocate to each master node."
-
-  validation {
-    condition     = var.master_disk_size >= 100 && var.master_disk_size <= 1000
-    error_message = "The size of the root disk must be between 100 and 1000."
-  }
 }
 
 variable "master_description" {
@@ -202,22 +192,12 @@ variable "worker_memory" {
   type        = number
   default     = 4096
   description = "The amount of memory to allocate to each worker node."
-
-  validation {
-    condition     = var.worker_memory >= 4096 && var.worker_memory <= 32768
-    error_message = "The amount of memory must be between 4096 and 32768."
-  }
 }
 
 variable "worker_disk_size" {
   type        = number
   default     = 100
   description = "The size of the root disk to allocate to each worker node."
-
-  validation {
-    condition     = var.worker_disk_size >= 100 && var.worker_disk_size <= 10000
-    error_message = "The size of the root disk must be between 100 and 10000."
-  }
 }
 
 variable "worker_description" {
